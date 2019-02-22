@@ -49,7 +49,7 @@ except ImportError:
 
 from ansible.module_utils.aws.core import AnsibleAWSModule
 from ansible.module_utils._text import to_native
-from ansible.module_utils.ec2 import boto3_conn, get_aws_connection_info, ec2_argument_spec
+from ansible.module_utils.ec2 import boto3_conn, get_aws_connection_info, ec2_argument_spec, camel_dict_to_snake_dict
 
 
 def get_elasticsearch_domain(module, client):
@@ -63,7 +63,7 @@ def get_elasticsearch_domain(module, client):
     """
     try:
         domain_name = module.params.get('domain_name')
-        return client.describe_elasticsearch_domain(DomainName=domain_name)
+        return camel_dict_to_snake_dict(client.describe_elasticsearch_domain(DomainName=domain_name))
     except botocore.exceptions.ClientError as e:
         module.fail_json_aws(e, msg='Unexpected error {0}'.format(to_native(e)))
 
