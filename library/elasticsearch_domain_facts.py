@@ -23,9 +23,6 @@ options:
     domain_name:
         description:
             - DomainName of the ES cluster.
-    tags:
-        description:
-            - List of tags of ES. Should be defined as dictionary
 extends_documentation_fragment:
   - aws
 '''
@@ -76,7 +73,6 @@ def main():
     argument_spec.update(dict(
         id=dict(),
         domain_name=dict(),
-        tags=dict(type="dict", default={}),
     ))
 
     module = AnsibleAWSModule(argument_spec=argument_spec,
